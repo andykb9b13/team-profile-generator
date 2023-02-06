@@ -1,0 +1,24 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+#cardContainer {
+    display: flex;
+    flex-direction: inline-block;
+    flex-wrap: wrap;
+}
+
+.teamMember {
+    background-color: paleturquoise;
+    border: 1px solid black;
+    box-shadow: 1px 1px 2px 1px black;
+    margin: 5px;
+}
