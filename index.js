@@ -6,12 +6,6 @@ const Intern = require('./lib/Intern')
 
 const myTeam = [];
 
-/* I can make a new Manager and having it go through all of the prompts successfully. 
-It will also transfer successfully to the html file I am creating
-I am not able to wait to create the html file until everything is completed. 
-Do I need to create a promise that waits for the stuff to be created and then writes it to the html? */
-
-
 function initiateProgram() {
     inquirer
         .prompt({
@@ -155,6 +149,4 @@ function writeFiles(myTeam) {
         box-shadow: 1px 1px 2px 1px black;
         margin: 5px;
     }`, (err) => (err) ? console.log("whoops, couldn't write the css file") : console.log('wrote the css file"'));
-
-    fs.writeFile('./dist/script.js', '', (err) => (err) ? console.log("couldn't write js file") : console.log("success, wrote js file"))
 }
