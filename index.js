@@ -1,18 +1,35 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const Employee = require('./lib/Employee');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern')
 
 function initiateProgram() {
     inquirer
+        .prompt({
+            type: "confirm",
+            message: "Hi there, would you like to add an employee?",
+            name: "init"
+        })
+        .then((response) => {
+            if (response.init) {
+                askQuestions()
+            } else {
+                console.log("Thanks! Goodbye!")
+                return
+            }
+        }
+        )
+}
+
+function askQuestions() {
+    inquirer
         .prompt([
             {
                 type: "list",
                 message: "Hello there! Which team member would you like to add?",
                 name: "role",
-                choices: ["manager", "intern", "engineer", "end"]
+                choices: ["manager", "intern", "engineer"]
             },
             {
                 type: "text",
