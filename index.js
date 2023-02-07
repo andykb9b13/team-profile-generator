@@ -4,6 +4,13 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern')
 
+const myTeam = [];
+
+/* I can make a new Manager and having it go through all of the prompts successfully. 
+It will also transfer successfully to the html file I am creating
+I am not able to wait to create the html file until everything is completed. 
+Do I need to create a promise that waits for the stuff to be created and then writes it to the html? */
+
 
 function initiateProgram() {
     inquirer
@@ -14,17 +21,15 @@ function initiateProgram() {
         })
         .then((response) => {
             if (response.init) {
-                askQuestions();
+                makeEmployee();
             } else {
                 console.log("Thanks! Goodbye!")
-                writeFiles();
-                return
+                writeFiles(myTeam);
             }
-        }
-        )
+        })
 }
 
-function askQuestions() {
+function makeEmployee() {
     inquirer
         .prompt([
             {
@@ -50,7 +55,6 @@ function askQuestions() {
             }
         ])
         .then((response) => {
-            console.log(response)
             switch (response.role) {
                 case "manager":
                     makeManager(response.name, response.role, response.id, response.email);
@@ -61,12 +65,10 @@ function askQuestions() {
                 case 'engineer':
                     makeEngineer(response.name, response.role, response.id, response.email);
                     break
-                case 'end':
-                    console.log("GoodBye!");
-                    return
             }
         })
 }
+
 
 function makeManager(name, role, id, email) {
     const newManager = new Manager(name, role, id, email);
@@ -78,12 +80,12 @@ function makeManager(name, role, id, email) {
         })
         .then((response) => {
             newManager.officeNumber = response.officeNumber;
-            console.log(newManager);
+            myTeam.push(newManager);
+            console.log("this is my team", myTeam);
             initiateProgram();
-            return newManager;
         })
-}
 
+}
 
 function makeEngineer(name, role, id, email) {
     let newEngineer = new Engineer(name, role, id, email);
@@ -95,13 +97,11 @@ function makeEngineer(name, role, id, email) {
         })
         .then((response) => {
             newEngineer.github = `https://github.com/${response.github}`;
+            myTeam.push(newEngineer);
+            console.log("this is my team", myTeam);
             initiateProgram();
-            console.log(newEngineer)
-            return newEngineer;
         })
 }
-
-
 
 function makeIntern(name, role, id, email) {
     const newIntern = new Intern(name, role, id, email);
@@ -113,82 +113,23 @@ function makeIntern(name, role, id, email) {
         })
         .then((response) => {
             newIntern.school = response.school;
-            console.log(newIntern);
+            myTeam.push(newIntern);
+            console.log("this is my team", myTeam);
             initiateProgram();
         })
 }
 
 initiateProgram()
 
-function writeFiles() {
-    fs.writeFile("./dist/index.html", `<!DOCTYPE html>
-    <html lang="en">
-    
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap"
-            rel="stylesheet">
-        <link rel="stylesheet" href="./style.css">
-        <title>Document</title>
-    </head>
-    
-    <body>
-        <h1>This is a test HTML file</h1>
-        <div id="cardContainer">
-            <div class="teamMember card">
-                <h2>Intern</h2>
-                <ul>
-                    <li id="managerName">Andy</li>
-                    <li id="employeeId">1249023</li>
-                    <li id="employeeEmail">andy.kleindienst@gmail.com</li>
-                    <li id="officeNumber">919-949-1840</li>
-                </ul>
-            </div>
-            <div class="teamMember card">
-                <h2>Intern</h2>
-                <ul>
-                    <li id="managerName">Andy</li>
-                    <li id="employeeId">1249023</li>
-                    <li id="employeeEmail">andy.kleindienst@gmail.com</li>
-                    <li id="officeNumber">919-949-1840</li>
-                </ul>
-            </div>
-            <div class="teamMember card">
-                <h2>Engineer</h2>
-                <ul>
-                    <li id="managerName">Andy</li>
-                    <li id="employeeId">1249023</li>
-                    <li id="employeeEmail">andy.kleindienst@gmail.com</li>
-                    <li id="officeNumber">919-949-1840</li>
-                </ul>
-            </div>
-            <div class="teamMember card">
-                <h2>Engineer</h2>
-                <ul>
-                    <li id="managerName">Andy</li>
-                    <li id="employeeId">1249023</li>
-                    <li id="employeeEmail">andy.kleindienst@gmail.com</li>
-                    <li id="officeNumber">919-949-1840</li>
-                </ul>
-            </div>
-            <div class="teamMember card">
-                <h2>Engineer</h2>
-                <ul>
-                    <li id="managerName">Andy</li>
-                    <li id="employeeId">1249023</li>
-                    <li id="employeeEmail">andy.kleindienst@gmail.com</li>
-                    <li id="officeNumber">919-949-1840</li>
-                </ul>
-            </div>
-        </div>
-    
-    </body>
-    
-    </html>`, (err) => (err) ? console.log("whoops, something went wrong") : console.log("wrote index.html file"));
+
+function makeDivs(myTeam) {
+    for (let member of myTeam) {
+        fs.appendFile('./dist/script.js', `makeDiv()`, (err) => (err) ? (console.log("couldn't append file")) : console.log("appended js file"))
+    }
+}
+
+function writeFiles(myTeam) {
+    fs.writeFile("./dist/index.html", ``, (err) => (err) ? console.log("whoops, something went wrong") : console.log("wrote index.html file"));
 
     fs.writeFile('./dist/style.css', `body {
         font-family: 'Poppins', sans-serif;
@@ -214,4 +155,6 @@ function writeFiles() {
         box-shadow: 1px 1px 2px 1px black;
         margin: 5px;
     }`, (err) => (err) ? console.log("whoops, couldn't write the css file") : console.log('wrote the css file"'));
+
+    fs.writeFile('./dist/script.js', '', (err) => (err) ? console.log("couldn't write js file") : console.log("success, wrote js file"))
 }
