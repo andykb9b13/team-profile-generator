@@ -118,11 +118,44 @@ initiateProgram()
 
 function makeDivs(myTeam) {
     for (let member of myTeam) {
-        fs.appendFile('./dist/script.js', `makeDiv()`, (err) => (err) ? (console.log("couldn't append file")) : console.log("appended js file"))
+        switch (member.role) {
+            case "Manager":
+                `<div class="teamMember card">
+        <h2>${member.role}</h2>
+        <ul>
+            <li>Name: ${member.name}</li>
+            <li>Id: 1249023</li>
+            <li>Email: ${member.email}</li>
+            <li>Office Number: ${member.officeNumber}</li>
+        </ul>
+    </div>`
+            case "Engineer":
+                `<div class="teamMember card">
+        <h2>${member.role}</h2>
+        <ul>
+            <li>Name: ${member.name}</li>
+            <li>Id: 1249023</li>
+            <li>Email: ${member.email}</li>
+            <li>gitHub: <a src="https://github.com/${member.github}">${member.github}</a></li>
+        </ul>
+    </div>`
+            case "Intern":
+                `<div class="teamMember card">
+        <h2>${member.role}</h2>
+        <ul>
+            <li>Name: ${member.name}</li>
+            <li>Id: 1249023</li>
+            <li>Email: ${member.email}</li>
+            <li>School: ${member.school}</li>
+        </ul>
+    </div>`
+        }
     }
 }
 
 function writeFiles(myTeam) {
+    makeDivs(myTeam);
+
     fs.writeFile("./dist/index.html", ``, (err) => (err) ? console.log("whoops, something went wrong") : console.log("wrote index.html file"));
 
     fs.writeFile('./dist/style.css', `body {
