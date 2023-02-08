@@ -90,7 +90,7 @@ function makeEngineer(name, role, id, email) {
             name: "github"
         })
         .then((response) => {
-            newEngineer.wildCard = `https://github.com/${response.github}`;
+            newEngineer.wildCard = `<a href="https://github.com/${response.github}">${response.github}</a>`;
             myTeam.push(newEngineer);
             console.log("this is my team", myTeam);
             initiateProgram();
@@ -124,7 +124,7 @@ function makeHtml(team) {
         <ul>
             <li>Name: ${member.name}</li>
             <li>Id: 1249023</li>
-            <li>Email: ${member.email}</li>
+            <li>Email: <a href=mailto:"${member.email}">${member.email}</a></li>
             <li>${member.wildCard}</li>
         </ul>
     </div>`
