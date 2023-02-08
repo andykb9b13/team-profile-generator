@@ -73,7 +73,7 @@ function makeManager(name, role, id, email) {
             name: "officeNumber"
         })
         .then((response) => {
-            newManager.officeNumber = response.officeNumber;
+            newManager.wildCard = response.officeNumber;
             myTeam.push(newManager);
             console.log("this is my team", myTeam);
             initiateProgram();
@@ -90,7 +90,7 @@ function makeEngineer(name, role, id, email) {
             name: "github"
         })
         .then((response) => {
-            newEngineer.github = `https://github.com/${response.github}`;
+            newEngineer.wildCard = `https://github.com/${response.github}`;
             myTeam.push(newEngineer);
             console.log("this is my team", myTeam);
             initiateProgram();
@@ -106,7 +106,7 @@ function makeIntern(name, role, id, email) {
             name: "school"
         })
         .then((response) => {
-            newIntern.school = response.school;
+            newIntern.wildCard = response.school;
             myTeam.push(newIntern);
             console.log("this is my team", myTeam);
             initiateProgram();
@@ -125,11 +125,10 @@ function makeHtml(team) {
             <li>Name: ${member.name}</li>
             <li>Id: 1249023</li>
             <li>Email: ${member.email}</li>
-            <li>Office Number: ${member.officeNumber}</li>
+            <li>${member.wildCard}</li>
         </ul>
     </div>`
     )
-
 
     const HTMLwrapper =
         `<!DOCTYPE html>
@@ -153,7 +152,7 @@ function makeHtml(team) {
         </body>
 
         </html>`;
-    fs.writeFile('./dist/index.html', HTMLwrapper, (err) => (err) ? console.log("couldn't write html file") : console.log("success! Wrote html file"))
+    fs.writeFile('./dist/index.html', HTMLwrapper, (err) => (err) ? console.log("couldn't write html file") : console.log("success! wrote html file"))
     fs.writeFile('./dist/style.css', `body {
             font-family: 'Poppins', sans-serif;
         }
@@ -177,7 +176,7 @@ function makeHtml(team) {
             border: 1px solid black;
             box-shadow: 1px 1px 2px 1px black;
             margin: 5px;
-        }`, (err) => (err) ? console.log("whoops, couldn't write the css file") : console.log('wrote the css file"'));
+        }`, (err) => (err) ? console.log("whoops, couldn't write the css file") : console.log('success!! wrote the css file"'));
 }
 
 
