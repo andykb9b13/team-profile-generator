@@ -18,7 +18,7 @@ function initiateProgram() {
                 makeEmployee();
             } else {
                 console.log("Thanks! Goodbye!")
-                writeFiles(myTeam);
+                makeHtml(myTeam);
             }
         })
 }
@@ -116,11 +116,10 @@ function makeIntern(name, role, id, email) {
 initiateProgram()
 
 
-function makeDivs(myTeam) {
-    for (let member of myTeam) {
-        switch (member.role) {
-            case "Manager":
-                `<div class="teamMember card">
+function makeHtml(team) {
+    console.log("This is my team", team)
+    const teamArray = team.map(member =>
+        `<div class="teamMember card">
         <h2>${member.role}</h2>
         <ul>
             <li>Name: ${member.name}</li>
@@ -129,57 +128,56 @@ function makeDivs(myTeam) {
             <li>Office Number: ${member.officeNumber}</li>
         </ul>
     </div>`
-            case "Engineer":
-                `<div class="teamMember card">
-        <h2>${member.role}</h2>
-        <ul>
-            <li>Name: ${member.name}</li>
-            <li>Id: 1249023</li>
-            <li>Email: ${member.email}</li>
-            <li>gitHub: <a src="https://github.com/${member.github}">${member.github}</a></li>
-        </ul>
-    </div>`
-            case "Intern":
-                `<div class="teamMember card">
-        <h2>${member.role}</h2>
-        <ul>
-            <li>Name: ${member.name}</li>
-            <li>Id: 1249023</li>
-            <li>Email: ${member.email}</li>
-            <li>School: ${member.school}</li>
-        </ul>
-    </div>`
-        }
-    }
-}
+    )
 
-function writeFiles(myTeam) {
-    makeDivs(myTeam);
 
-    fs.writeFile("./dist/index.html", ``, (err) => (err) ? console.log("whoops, something went wrong") : console.log("wrote index.html file"));
+    const HTMLwrapper =
+        `<!DOCTYPE html>
+        <html lang="en">
 
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap"
+                rel="stylesheet">
+            <link rel="stylesheet" href="./style.css">
+            <title>Document</title>
+        </head>
+
+        <body>
+            <h1>This is a test HTML file</h1>
+      ${teamArray.join("")}
+        </body>
+
+        </html>`;
+    fs.writeFile('./dist/index.html', HTMLwrapper, (err) => (err) ? console.log("couldn't write html file") : console.log("success! Wrote html file"))
     fs.writeFile('./dist/style.css', `body {
-        font-family: 'Poppins', sans-serif;
-    }
-    
-    h1 {
-        text-align: center;
-    }
-    
-    h2 {
-        text-align: center;
-    }
-    
-    #cardContainer {
-        display: flex;
-        flex-direction: inline-block;
-        flex-wrap: wrap;
-    }
-    
-    .teamMember {
-        background-color: paleturquoise;
-        border: 1px solid black;
-        box-shadow: 1px 1px 2px 1px black;
-        margin: 5px;
-    }`, (err) => (err) ? console.log("whoops, couldn't write the css file") : console.log('wrote the css file"'));
+            font-family: 'Poppins', sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        #cardContainer {
+            display: flex;
+            flex-direction: inline-block;
+            flex-wrap: wrap;
+        }
+
+        .teamMember {
+            background-color: paleturquoise;
+            border: 1px solid black;
+            box-shadow: 1px 1px 2px 1px black;
+            margin: 5px;
+        }`, (err) => (err) ? console.log("whoops, couldn't write the css file") : console.log('wrote the css file"'));
 }
+
+
