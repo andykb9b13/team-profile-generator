@@ -2,15 +2,53 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
-const Intern = require('./lib/Intern')
+const Intern = require('./lib/Intern');
 
 const myTeam = [];
+
+function makeManager() {
+    const newManager = new Manager();
+    inquirer
+        .prompt([
+            {
+                type: "text",
+                message: "What is the name of the manager?",
+                name: "name"
+            },
+            {
+                type: "text",
+                message: "What is the manager's ID?",
+                name: "id"
+            },
+            {
+                type: "text",
+                message: "What is the manager's email?",
+                name: "email"
+            },
+            {
+                type: "text",
+                message: "What is the manager's office number?",
+                name: "officeNumber"
+            }
+        ])
+        .then((response) => {
+            newManager.name = response.name;
+            newManager.id = response.id;
+            newManager.email = response.email;
+            newManager.role = newManager.getRole();
+            newManager.wildCard = response.officeNumber;
+            myTeam.push(newManager);
+            console.log("this is my team", myTeam);
+            initiateProgram();
+        })
+
+}
 
 function initiateProgram() {
     inquirer
         .prompt({
             type: "confirm",
-            message: "Hi there, would you like to add an employee?",
+            message: "Would you like to add a team member (engineer/intern)?",
             name: "init"
         })
         .then((response) => {
@@ -30,11 +68,11 @@ function makeEmployee() {
                 type: "list",
                 message: "Hello there! Which team member would you like to add?",
                 name: "role",
-                choices: ["manager", "intern", "engineer"]
+                choices: ["intern", "engineer"]
             },
             {
                 type: "text",
-                message: "what is the name of the employee?",
+                message: "What is the name of the employee?",
                 name: "name"
             },
             {
@@ -50,9 +88,6 @@ function makeEmployee() {
         ])
         .then((response) => {
             switch (response.role) {
-                case "manager":
-                    makeManager(response.name, response.role, response.id, response.email);
-                    break
                 case "intern":
                     makeIntern(response.name, response.role, response.id, response.email);
                     break
@@ -64,29 +99,13 @@ function makeEmployee() {
 }
 
 
-function makeManager(name, role, id, email) {
-    const newManager = new Manager(name, role, id, email);
-    inquirer
-        .prompt({
-            type: "text",
-            message: "What is your office number?",
-            name: "officeNumber"
-        })
-        .then((response) => {
-            newManager.wildCard = response.officeNumber;
-            myTeam.push(newManager);
-            console.log("this is my team", myTeam);
-            initiateProgram();
-        })
-
-}
 
 function makeEngineer(name, role, id, email) {
     let newEngineer = new Engineer(name, role, id, email);
     inquirer
         .prompt({
             type: "text",
-            message: "Please enter your gitHub userName...",
+            message: `Please enter ${newEngineer.name}'s gitHub userName...`,
             name: "github"
         })
         .then((response) => {
@@ -102,7 +121,7 @@ function makeIntern(name, role, id, email) {
     inquirer
         .prompt({
             type: "text",
-            message: "Please enter the school you are attending...",
+            message: `What school is ${newIntern.name} attending?`,
             name: "school"
         })
         .then((response) => {
@@ -112,9 +131,6 @@ function makeIntern(name, role, id, email) {
             initiateProgram();
         })
 }
-
-initiateProgram()
-
 
 function makeHtml(team) {
     console.log("This is my team", team)
@@ -152,7 +168,7 @@ function makeHtml(team) {
         </body>
 
         </html>`;
-    fs.writeFile('./dist/index.html', HTMLwrapper, (err) => (err) ? console.log("couldn't write html file") : console.log("success! wrote html file"))
+    fs.writeFile('./dist/index.html', HTMLwrapper, (err) => (err) ? console.log("couldn't write html file") : console.log("success! wrote html file"));
     fs.writeFile('./dist/style.css', `body {
             font-family: 'Poppins', sans-serif;
         }
@@ -179,4 +195,4 @@ function makeHtml(team) {
         }`, (err) => (err) ? console.log("whoops, couldn't write the css file") : console.log('success!! wrote the css file"'));
 }
 
-
+makeManager();
