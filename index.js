@@ -38,7 +38,6 @@ function makeManager() {
             newManager.role = newManager.getRole();
             newManager.wildCard = `Phone#: <span>${response.officeNumber}</span>`;
             myTeam.push(newManager);
-            console.log("this is my team", myTeam);
             initiateProgram();
         })
 
@@ -111,7 +110,6 @@ function makeEngineer(name, id, email) {
         .then((response) => {
             newEngineer.wildCard = `GitHub: <span><a href="https://github.com/${response.github}">${response.github}</a></span>`;
             myTeam.push(newEngineer);
-            console.log("this is my team", myTeam);
             initiateProgram();
         })
 }
@@ -127,7 +125,6 @@ function makeIntern(name, id, email) {
         .then((response) => {
             newIntern.wildCard = `School: <span>${response.school}</span>`;
             myTeam.push(newIntern);
-            console.log("this is my team", myTeam);
             initiateProgram();
         })
 }
