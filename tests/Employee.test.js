@@ -11,7 +11,7 @@ describe("Employee", () => {
     describe("Id", () => {
         it("should return the Id of the Employee", () => {
             const id = "12345";
-            const obj = new Employee('', '', id);
+            const obj = new Employee('', id);
             expect(obj.getId()).toEqual(id);
         })
     })
@@ -24,7 +24,7 @@ describe("Employee", () => {
     describe("Email", () => {
         it("should return the Email of the Employee", () => {
             const email = "andy.kleindienst@gmail.com";
-            const obj = new Employee('', '', '', email);
+            const obj = new Employee('', '', email);
             expect(obj.getEmail()).toEqual(email);
         })
     })

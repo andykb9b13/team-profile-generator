@@ -11,7 +11,7 @@ describe("Engineer", () => {
     describe("Id", () => {
         it("should return the Id of the Employee", () => {
             const id = "12345";
-            const obj = new Engineer('', '', id);
+            const obj = new Engineer('', id);
             expect(obj.getId()).toEqual(id);
         })
     })
@@ -24,14 +24,14 @@ describe("Engineer", () => {
     describe("Email", () => {
         it("should return the Email of the Employee", () => {
             const email = "andy.kleindienst@gmail.com";
-            const obj = new Engineer('', '', '', email);
+            const obj = new Engineer('', '', email);
             expect(obj.getEmail()).toEqual(email);
         })
     })
     describe("Wild Card", () => {
         it("should return the gitHub profile name of the Employee", () => {
             const github = "andykb9b13";
-            const obj = new Engineer('', '', '', '', github);
+            const obj = new Engineer('', '', '', github);
             expect(obj.getGithub()).toEqual(github);
 
         })

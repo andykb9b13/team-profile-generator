@@ -11,7 +11,7 @@ describe("Intern", () => {
     describe("Id", () => {
         it("should return the Id of the Employee", () => {
             const id = "12345";
-            const obj = new Intern('', '', id);
+            const obj = new Intern('', id);
             expect(obj.getId()).toEqual(id);
         })
     })
@@ -24,14 +24,14 @@ describe("Intern", () => {
     describe("Email", () => {
         it("should return the Email of the Employee", () => {
             const email = "andy.kleindienst@gmail.com";
-            const obj = new Intern('', '', '', email);
+            const obj = new Intern('', '', email);
             expect(obj.getEmail()).toEqual(email);
         })
     })
     describe("Wild Card", () => {
         it("should return the school name of the Employee", () => {
             const school = "UNC Chapel Hill";
-            const obj = new Intern('', '', '', '', school);
+            const obj = new Intern('', '', '', school);
             expect(obj.getSchool()).toEqual(school);
 
         })

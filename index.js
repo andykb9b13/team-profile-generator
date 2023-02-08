@@ -89,10 +89,10 @@ function makeEmployee() {
         .then((response) => {
             switch (response.role) {
                 case "Intern":
-                    makeIntern(response.name, response.role, response.id, response.email);
+                    makeIntern(response.name, response.id, response.email);
                     break
                 case 'Engineer':
-                    makeEngineer(response.name, response.role, response.id, response.email);
+                    makeEngineer(response.name, response.id, response.email);
                     break
             }
         })
@@ -100,8 +100,8 @@ function makeEmployee() {
 
 
 
-function makeEngineer(name, role, id, email) {
-    let newEngineer = new Engineer(name, role, id, email);
+function makeEngineer(name, id, email) {
+    let newEngineer = new Engineer(name, id, email);
     inquirer
         .prompt({
             type: "text",
@@ -116,8 +116,8 @@ function makeEngineer(name, role, id, email) {
         })
 }
 
-function makeIntern(name, role, id, email) {
-    const newIntern = new Intern(name, role, id, email);
+function makeIntern(name, id, email) {
+    const newIntern = new Intern(name, id, email);
     inquirer
         .prompt({
             type: "text",
@@ -136,7 +136,7 @@ function makeHtml(team) {
     console.log("This is my team", team)
     const teamArray = team.map(member =>
         `<div class="teamMember card">
-        <h2>${member.role}</h2>
+        <h2>${member.getRole()}</h2>
         <ul>
             <li>Name: <span> ${member.name}</span></li>
             <li>Id: <span> ${member.id}</span></li>
