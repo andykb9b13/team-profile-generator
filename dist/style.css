@@ -47,6 +47,10 @@
         list-style-type: none;
     }
     
+    span {
+        font-weight: 200;
+    }
+
     a {
         color: var(--tan);
     }

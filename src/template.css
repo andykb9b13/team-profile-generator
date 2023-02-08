@@ -41,10 +41,16 @@ ul {
 }
 
 li {
+    display: flex;
+    flex-direction: inline;
     color: var(--white);
     text-shadow: var(--text-shadow);
-    font-weight: 300;
+    font-weight: 400;
     list-style-type: none;
+}
+
+span {
+    font-weight: 200;
 }
 
 a {

@@ -36,7 +36,7 @@ function makeManager() {
             newManager.id = response.id;
             newManager.email = response.email;
             newManager.role = newManager.getRole();
-            newManager.wildCard = response.officeNumber;
+            newManager.wildCard = `Phone#: <span>${response.officeNumber}</span>`;
             myTeam.push(newManager);
             console.log("this is my team", myTeam);
             initiateProgram();
@@ -89,10 +89,10 @@ function makeEmployee() {
         .then((response) => {
             switch (response.role) {
                 case "Intern":
-                    makeIntern(response.name, response.role, response.id, response.email);
+                    makeIntern(response.name, response.id, response.email);
                     break
                 case 'Engineer':
-                    makeEngineer(response.name, response.role, response.id, response.email);
+                    makeEngineer(response.name, response.id, response.email);
                     break
             }
         })
@@ -100,8 +100,8 @@ function makeEmployee() {
 
 
 
-function makeEngineer(name, role, id, email) {
-    let newEngineer = new Engineer(name, role, id, email);
+function makeEngineer(name, id, email) {
+    let newEngineer = new Engineer(name, id, email);
     inquirer
         .prompt({
             type: "text",
@@ -109,15 +109,15 @@ function makeEngineer(name, role, id, email) {
             name: "github"
         })
         .then((response) => {
-            newEngineer.wildCard = `GitHub: <a href="https://github.com/${response.github}">${response.github}</a>`;
+            newEngineer.wildCard = `GitHub: <span><a href="https://github.com/${response.github}">${response.github}</a></span>`;
             myTeam.push(newEngineer);
             console.log("this is my team", myTeam);
             initiateProgram();
         })
 }
 
-function makeIntern(name, role, id, email) {
-    const newIntern = new Intern(name, role, id, email);
+function makeIntern(name, id, email) {
+    const newIntern = new Intern(name, id, email);
     inquirer
         .prompt({
             type: "text",
@@ -125,7 +125,7 @@ function makeIntern(name, role, id, email) {
             name: "school"
         })
         .then((response) => {
-            newIntern.wildCard = `School: ${response.school}`;
+            newIntern.wildCard = `School: <span>${response.school}</span>`;
             myTeam.push(newIntern);
             console.log("this is my team", myTeam);
             initiateProgram();
@@ -136,12 +136,12 @@ function makeHtml(team) {
     console.log("This is my team", team)
     const teamArray = team.map(member =>
         `<div class="teamMember card">
-        <h2>${member.role}</h2>
+        <h2>${member.getRole()}</h2>
         <ul>
-            <li>Name: ${member.name}</li>
-            <li>Id: 1249023</li>
-            <li>Email: <a href=mailto:"${member.email}">${member.email}</a></li>
-            <li>${member.wildCard}</li>
+            <li>Name: <span> ${member.name}</span></li>
+            <li>Id: <span> ${member.id}</span></li>
+            <li>Email: <span> <a href=mailto:"${member.email}">${member.email}</a></span></li>
+            <li> ${member.wildCard}</li>
         </ul>
     </div>`
     )
@@ -174,7 +174,7 @@ function makeHtml(team) {
         </body>
 
         </html>`;
-    fs.writeFile('./dist/index.html', HTMLwrapper, (err) => (err) ? console.log("couldn't write html file") : console.log("success! wrote html file"));
+    fs.writeFile('./dist/index.html', HTMLwrapper, (err) => (err) ? console.log("Couldn't write html file") : console.log("Success!! Wrote html file"));
     fs.writeFile('./dist/style.css', `:root {
         --orange: #C03221;
         --white: #F7F7FF;
@@ -224,6 +224,10 @@ function makeHtml(team) {
         list-style-type: none;
     }
     
+    span {
+        font-weight: 200;
+    }
+
     a {
         color: var(--tan);
     }
@@ -273,7 +277,7 @@ function makeHtml(team) {
         h1 {
             font-size: 2.8em;
         }
-    }`, (err) => (err) ? console.log("whoops, couldn't write the css file") : console.log('success!! wrote the css file"'));
+    }`, (err) => (err) ? console.log("Whoops, couldn't write the css file") : console.log('Success!! Wrote the css file"'));
 }
 
 makeManager();
