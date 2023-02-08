@@ -109,7 +109,7 @@ function makeEngineer(name, role, id, email) {
             name: "github"
         })
         .then((response) => {
-            newEngineer.wildCard = `<a href="https://github.com/${response.github}">${response.github}</a>`;
+            newEngineer.wildCard = `GitHub: <a href="https://github.com/${response.github}">${response.github}</a>`;
             myTeam.push(newEngineer);
             console.log("this is my team", myTeam);
             initiateProgram();
@@ -125,7 +125,7 @@ function makeIntern(name, role, id, email) {
             name: "school"
         })
         .then((response) => {
-            newIntern.wildCard = response.school;
+            newIntern.wildCard = `School: ${response.school}`;
             myTeam.push(newIntern);
             console.log("this is my team", myTeam);
             initiateProgram();
@@ -159,40 +159,121 @@ function makeHtml(team) {
             <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap"
                 rel="stylesheet">
             <link rel="stylesheet" href="./style.css">
-            <title>Document</title>
+            <title>Team Members</title>
         </head>
 
         <body>
-            <h1>This is a test HTML file</h1>
+        <header>
+            <h1>Team Members</h1>
+        </header>
+        <main>    
+            <div id="cardContainer">
       ${teamArray.join("")}
+        </div>
+        </main>
         </body>
 
         </html>`;
     fs.writeFile('./dist/index.html', HTMLwrapper, (err) => (err) ? console.log("couldn't write html file") : console.log("success! wrote html file"));
-    fs.writeFile('./dist/style.css', `body {
-            font-family: 'Poppins', sans-serif;
-        }
-
+    fs.writeFile('./dist/style.css', `:root {
+        --orange: #C03221;
+        --white: #F7F7FF;
+        --tan: #F2D0A4;
+        --grey: #545E75;
+        --green: #3F826D;
+        --text-shadow: 1px 1px 1px black;
+    }
+    
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: var(--white);
+    }
+    
+    header {
+        background-color: var(--green);
+        height: 20vh;
+    
+    }
+    
+    h1 {
+        text-align: center;
+        color: var(--white);
+        text-shadow: var(--text-shadow);
+        font-size: 4em;
+        margin-top: 0px;
+    }
+    
+    h2 {
+        text-align: center;
+        color: var(--white);
+        text-shadow: var(--text-shadow);
+        font-weight: 400;
+        text-decoration: underline;
+    }
+    
+    ul {
+        display: flex;
+        flex-direction: column;
+    
+    }
+    
+    li {
+        color: var(--white);
+        text-shadow: var(--text-shadow);
+        font-weight: 300;
+        list-style-type: none;
+    }
+    
+    a {
+        color: var(--tan);
+    }
+    
+    #cardContainer {
+        display: flex;
+        flex-direction: inline;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .teamMember {
+        background-color: var(--grey);
+        border: 1px solid black;
+        border-radius: 5px;
+        box-shadow: 1px 1px 2px 1px black;
+        margin: 10px;
+        width: 25%;
+    }
+    
+    @media screen and (max-width:1100px) {
         h1 {
-            text-align: center;
+            font-size: 3.5em;
         }
-
-        h2 {
-            text-align: center;
+    
+        li {
+            font-size: 0.9em;
         }
-
+    }
+    
+    @media screen and (max-width: 900px) {
         #cardContainer {
-            display: flex;
-            flex-direction: inline-block;
-            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
         }
-
+    
         .teamMember {
-            background-color: paleturquoise;
-            border: 1px solid black;
-            box-shadow: 1px 1px 2px 1px black;
-            margin: 5px;
-        }`, (err) => (err) ? console.log("whoops, couldn't write the css file") : console.log('success!! wrote the css file"'));
+            width: 60%;
+        }
+    }
+    
+    @media screen and (max-width: 545px) {
+        .teamMember {
+            width: 80%;
+        }
+    
+        h1 {
+            font-size: 2.8em;
+        }
+    }`, (err) => (err) ? console.log("whoops, couldn't write the css file") : console.log('success!! wrote the css file"'));
 }
 
 makeManager();
