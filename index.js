@@ -68,7 +68,7 @@ function makeEmployee() {
                 type: "list",
                 message: "Hello there! Which team member would you like to add?",
                 name: "role",
-                choices: ["intern", "engineer"]
+                choices: ["Intern", "Engineer"]
             },
             {
                 type: "text",
@@ -88,10 +88,10 @@ function makeEmployee() {
         ])
         .then((response) => {
             switch (response.role) {
-                case "intern":
+                case "Intern":
                     makeIntern(response.name, response.role, response.id, response.email);
                     break
-                case 'engineer':
+                case 'Engineer':
                     makeEngineer(response.name, response.role, response.id, response.email);
                     break
             }
