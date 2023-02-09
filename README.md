@@ -18,7 +18,7 @@ Staying in contact with members of you team is incredibly important when you are
 
 ## Project Outline
 ```
-This application creates a dynamically-generated webpage based on user input from the command line.
+This application creates a dynamically-generated webpage with responsive design based on user input from the command line.
 The user will enter information via prompts from the command line and those reponses will be turned into cards displayed in the browser.
 The information for each EMPLOYEE will include: NAME, ROLE, EMAIL ADDRESS.
 The MANAGER will also include: OFFICE NUMBER.
@@ -30,17 +30,19 @@ The INTERN will also include: CURRENT SCHOOL.
 The application uses the following dependencies: 
 INQUIRER 8.2.4
 JEST 29.4.1
-> **note**: To install these modules the command is 'npm install'.
+> **Note**: To install these modules the command is 'npm install'.
 
 ## Usage
+To view how the application functions, please review the video tutorial.
 
+[Tutorial](https://drive.google.com/file/d/1LJEzHCYKvwmDGTOUaCOA78L7Xf9LjypM/view)
 
 ## Contributing
 The application is open for developers to add functionality and design. 
 
 ## Testing
 The application comes with several unit test suites that will verify the functionality of the EMPLOYEE, MANAGER, ENGINEER, and INTERN classes.
-> **note**: The command for testing is 'npm test'.
+> **Note**: The command for testing is 'npm test'.
 
 ## Reporting Errors
 Please report all errors to andy.kleindienst@gmail.com.
