@@ -130,7 +130,6 @@ function makeIntern(name, id, email) {
 }
 
 function makeHtml(team) {
-    console.log("This is my team", team)
     const teamArray = team.map(member =>
         `<div class="teamMember card">
         <h2>${member.getRole()}</h2>
